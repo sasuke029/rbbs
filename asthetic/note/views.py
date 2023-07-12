@@ -128,7 +128,11 @@ def Catagories(request):
 #     return render(request,'semester.html',context)
 
 
-def Cart(request):
+def Cart(request,pk):
+    rooms = Room.objects.get(id=pk)
+    
+    print(rooms.topic)
+    print('code here')
     if request.method=="POST":
      
          Subjects = request.POST['name']
@@ -137,7 +141,7 @@ def Cart(request):
          Total_Price=request.POST['message']
          data = cart.objects.create(Subjects=Subjects,Rate=Rate,Quantity=Quantity,Total_Price=Total_Price)
     my_cart = cart.objects.all()
-    return render(request,'my_cart.html',{'Addtocart':my_cart})
+    return render(request,'my_cart.html',{'Addtocart':my_cart,'room':rooms})
 
 def checkout(request):
     context ={}
