@@ -4,25 +4,41 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .models import Note,Room
+from .models import Note,Room ,Department, Semester
 from django.contrib.auth.models import  User
 from .forms import MyUserCreationForm, NoteForm
 
 # Create your views here.
 def index(request):
 
-    rooms = Room.objects.all()
-    context={'rooms':rooms}
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q)  |
+        Q(name__icontains=q)
+    )
+    rooms_count = rooms.count
+    topics = Note.objects.all()[0:5]
+    context={'rooms':rooms,'topics':topics,'rooms_count':rooms_count}
     return render(request,'index.html',context)
 
 
-
+@login_required(login_url='login')
 def download_section(request,pk):
     rooms = Room.objects.get(id=pk)
-    roomed= Room.objects.all()
-    context={'rooms':rooms,'roomed':roomed}
+    user =  rooms.host
+    similarnote = Room.objects.filter(host = user)
+    context={'rooms':rooms,'similarnote':similarnote}
     return render(request,'download_section.html',context)
 
+
+def profilePage(request,pk):
+    user=User.objects.get(id=pk)
+    rooms = user.room_set.all() # type: ignore
+    topics=Note.objects.all()
+    rooms_count = rooms.count
+    context = {'user':user,'rooms':rooms,'topics':topics,'rooms_count':rooms_count}
+    return render(request,'profile.html',context)
 
 def registerPage(request):
     form = MyUserCreationForm()
@@ -74,7 +90,7 @@ def logoutUser(request):
     return redirect('home')
     
 
-
+@login_required(login_url='login')
 def createNote(request):
     form = NoteForm()
     topics = Note.objects.all()
@@ -104,3 +120,16 @@ def Addtocart(request):
 def Checkout(request):
     context = {}
     return render(request,'checkout.html',context)
+
+
+def Catagories(request):
+    departments = Department.objects.all()
+    context = {'departments':departments}
+    return render(request,'catagories.html',context)
+
+
+def semester(request,pk):
+    department = Department.objects.get(id=pk)
+    semesters = department.semester_set.all() # type: ignore
+    context = {'semesters':semesters}
+    return render(request,'semester.html',context)

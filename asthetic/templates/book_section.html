@@ -12,7 +12,7 @@
   <div class="roomList__header">
     <div>
       <h2>Rooms</h2>
-      <p>948 Rooms available</p>
+      <p>{{rooms_count}} Rooms available</p>
     </div>
 
     <a class="btn btn--main" href="{%url 'create-note'%}">
@@ -42,7 +42,7 @@
   
       <p class="home-category_tile_component__tileSubtitle">{{room.description}}</p>
   
-      <a class="home-category_tile_component__tileLink" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: newest&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="/category/blogging?sort=date">{{room.name}}</a>
+      <a class="home-category_tile_component__tileLink" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: newest&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{%url 'profile' room.host.id%}">{{room.name}}</a>
     </div>
   
     <a class="home-category_tile_component__tileArt" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: image&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="/category/blogging">
@@ -62,7 +62,7 @@
       </div>
   
       <div class="home-category_tiles_block_component__cta">
-        <a rel="" class="shared-cta_button_component__root shared-cta_button_component__large" data-action="analytics-event#send" data-analytics-event="{&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category Tiles&quot;,&quot;eventAction&quot;:&quot;click;button&quot;,&quot;eventLabel&quot;:&quot;View all categories&quot;}" href="/category/all">View all categories</a>
+        <a rel="stylesheet" class="shared-cta_button_component__root shared-cta_button_component__large" data-action="analytics-event#send" data-analytics-event="{&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category Tiles&quot;,&quot;eventAction&quot;:&quot;click;button&quot;,&quot;eventLabel&quot;:&quot;View all categories&quot;}" href="{%url 'catagories'%}">View all categories</a>
   
       </div>
     </div>

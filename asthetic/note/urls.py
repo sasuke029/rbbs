@@ -10,5 +10,9 @@ urlpatterns = [
     path('/logout',views.logoutUser,name="logout"),
     path('/my_cart',views.Addtocart,name="Addtocart"),
     path('/checkout',views.Checkout,name="checkout"),
+    path('/profile/<str:pk>/',views.profilePage,name="profile"),
+    path('/catagories',views.Catagories,name="catagories"),
+    path('/semester/<str:pk>/',views.semester,name="semester"),
+
 
 ]
