@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .models import Note,Room ,Department, Semester
+from . models import Note,Room ,Department, Semester,cart
 from django.contrib.auth.models import  User
 from .forms import MyUserCreationForm, NoteForm
 
@@ -113,13 +113,6 @@ def createNote(request):
 
 
 
-def Addtocart(request):
-    context = {}
-    return render(request,'my_cart.html',context)
-
-def Checkout(request):
-    context = {}
-    return render(request,'checkout.html',context)
 
 
 def Catagories(request):
@@ -128,8 +121,24 @@ def Catagories(request):
     return render(request,'catagories.html',context)
 
 
-def semester(request,pk):
-    department = Department.objects.get(id=pk)
-    semesters = department.semester_set.all() # type: ignore
-    context = {'semesters':semesters}
-    return render(request,'semester.html',context)
+# def semester(request,pk):
+#     department = Department.objects.get(id=pk)
+#     semesters = department.semester_set.all() # type: ignore
+#     context = {'semesters':semesters}
+#     return render(request,'semester.html',context)
+
+
+def Cart(request):
+    if request.method=="POST":
+     
+         Subjects = request.POST['name']
+         Rate=request.POST['email']
+         Quantity=request.POST['address']
+         Total_Price=request.POST['message']
+         data = cart.objects.create(Subjects=Subjects,Rate=Rate,Quantity=Quantity,Total_Price=Total_Price)
+    my_cart = cart.objects.all()
+    return render(request,'my_cart.html',{'Addtocart':my_cart})
+
+def checkout(request):
+    context ={}
+    return render(request,'checkout.html',context)

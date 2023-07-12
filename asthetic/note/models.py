@@ -43,3 +43,10 @@ class Room(models.Model):
 
 
 
+    
+class cart(models.Model):
+    Subjects = models.CharField(max_length=100)
+    Rate = models.PositiveIntegerField() 
+    Quantity = models.PositiveIntegerField()
+    Total_Price =models.PositiveIntegerField()
+
