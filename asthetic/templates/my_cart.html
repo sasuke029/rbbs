@@ -91,20 +91,18 @@
 
   </tr>
   <!-- Table rows go here -->
-</table>
-
-<a href = "{% url 'checkout' %}"><button class="checkout-button">Checkout</button></a>
-
  {% comment %} {% for i in context %} {% endcomment %}
     <tr>
-    <td>1</td>
+    <td>{{room.id}}</td>
     <td>{{ room.topic }}</td>
-    <td>fffff</td>
-    <td>ffff</td>
-    <td>ingi</td>
-   
-
+    <td>{{room.rate}}</td>
+    <td>23</td>
+    <td>34000</td>
+  
   </tr> 
+</table>
+  
+<a href = "{% url 'checkout' %}"><button class="checkout-button">Checkout</button></a>
   {% comment %} {% endfor %}  {% endcomment %}
 </div>
 <div>
